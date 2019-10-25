@@ -1,0 +1,44 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+canvas {
+  width: 100vw !important;
+  position: absolute;
+  top:20vh;
+  left: 20vw;
+  transform: rotateY(180deg);
+  max-height: 60vh;
+  max-width: 60vw;
+}
+video {
+  width: 50vw !important;
+  height: auto !important;
+  visibility: hidden;
+}
+.background, .circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+.background {
+  padding: 10vh 10vw;
+  width: calc(100vw - 20vw);
+  height: calc(100vh - 20vh);
+}
+
+@media only screen and (max-width: 1200px) {
+  canvas {
+    max-height: 80vh;
+    max-width: 80vw;
+  }
+  .background {
+    padding: 5vh 5vw;
+    width: calc(100vw - 10vw);
+    height: calc(100vh - 10vh);
+  }
+}
