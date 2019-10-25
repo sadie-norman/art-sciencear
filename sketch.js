@@ -35,7 +35,6 @@ function setup() {
     classProbThreshold: 0.4
   }
 
-  console.log(images);
   //class prop threshold : number of boxes
 
   // Create a YOLO method
@@ -54,7 +53,6 @@ function draw() {
     windowResized();
     i++;
   }
-  console.log(objects)
   // image(video, 0, 0, width, height);
   for (let i = 0; i < objects.length; i++) {
     let x = objects[i].x * width;
