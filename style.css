@@ -6,14 +6,15 @@ body {
 canvas {
   width: 100vw !important;
   position: absolute;
-  top:20vh;
-  left: 20vw;
-  transform: rotateY(180deg);
-  max-height: 60vh;
-  max-width: 60vw;
+  top: 20vh;
+  left: 0vw;
+  /* transform: rotateY(180deg); */
+  /* max-height: 60vh;
+  max-width: 60vw; */
+  /* opacity: 0.2; */
 }
 video {
-  width: 50vw !important;
+  width: 100vw !important;
   height: auto !important;
   visibility: hidden;
 }
@@ -25,6 +26,9 @@ video {
   height: 100vh;
   object-fit: cover;
 }
+.circle {
+  z-index: 100000!important;
+}
 .background {
   padding: 10vh 10vw;
   width: calc(100vw - 20vw);
@@ -32,10 +36,11 @@ video {
 }
 
 @media only screen and (max-width: 1200px) {
-  canvas {
+  /* canvas,video {
     max-height: 80vh;
     max-width: 80vw;
-  }
+    left: 10vw;
+  } */
   .background {
     padding: 5vh 5vw;
     width: calc(100vw - 10vw);
