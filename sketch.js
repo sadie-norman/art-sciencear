@@ -86,8 +86,8 @@ function draw() {
   //draw box
   if(face.eye1.id !== null && face.eye2.id !== null && face.nose.id !== null) {
     if(face.eye1.pos) {
-      let x = face.eye1.pos.x+200;
-      let y = face.eye1.pos.y+100;
+      let x = face.eye1.pos.x;
+      let y = face.eye1.pos.y;
       translate(x,y);
       rotate(-(noise(0.1)*angle));
       length = face.eye2.pos.x - face.eye1.pos.x;
@@ -151,8 +151,8 @@ function drawKeypoints()  {
           fill(0,255,255);
         }
 
-        ellipse(keypoint.position.x+200, keypoint.position.y+50, 5, 5);
-        text(keypoint.part, keypoint.position.x+200, keypoint.position.y+50)
+        ellipse(keypoint.position.x, keypoint.position.y, 5, 5);
+        text(keypoint.part, keypoint.position.x, keypoint.position.y)
       }
     }
   }
