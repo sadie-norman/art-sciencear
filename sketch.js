@@ -48,19 +48,19 @@ function preload() {
   }
 }
 function setup() {
-  var can = createCanvas(windowWidth,windowHeight);
+  var can = createCanvas(640,480);
   video = createCapture(VIDEO);
   let vidHeight = select('video').height;
 
   //class prop threshold : number of boxes
   let options = {
     imageScaleFactor: 0.9,
-    flipHorizontal: true,
+    flipHorizontal: false,
     minConfidence: 10,
     maxPoseDetections: 3,
     scoreThreshold: 0.9,
     nmsRadius: 10,
-    detectionType: 'multiple',
+    detectionType: 'single',
     multiplier: 0.75,
   }
   // Create a YOLO method
@@ -73,12 +73,13 @@ function setup() {
 function draw() {
   clear();
   if(i < 100) {
-    windowResized();
+    // windowResized();
     i++;
   }
 
-//   image(video, 0, 0, width, height);
-  
+  console.log(poses)
+
+  image(video, 0, 0, width, height);
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
   // drawSkeleton();
