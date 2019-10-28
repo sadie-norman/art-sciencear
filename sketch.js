@@ -175,7 +175,7 @@ function drawSkeleton() {
 }
 
 function modelReady() {
-  select('#status').html('Model Loaded');
+  // select('#status').html('Model Loaded');
 }
 
 function windowResized() {
