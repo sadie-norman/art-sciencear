@@ -108,6 +108,7 @@ function draw() {
         let dna = select('.dna');
         dna.position(x-(width/2),top+y-(width/2));
         dna.size(width,width);
+        dna.attribute('src',`images/img${face.eye1.img}.png`);
         text(`${ceil(x)},${ceil(y)}`,x,y);
         ellipse(x,y,10,10)
       }
@@ -147,7 +148,7 @@ function drawKeypoints()  {
             value.id = j;
             value.pos = keypoint.position;
             if(value.name === "leftEye") {
-              value.img = images[floor(random(0,images.length))];
+              value.img = floor(random(0,images.length));
             }
           } else if(value.id === j && value.id !== null) {
             value.pos = keypoint.position;
