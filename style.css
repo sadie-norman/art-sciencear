@@ -12,6 +12,7 @@ canvas, video {
 }
 video {
   visibility: hidden;
+  object-fit: none !important;
 }
 .background, .circle {
   position: absolute;
