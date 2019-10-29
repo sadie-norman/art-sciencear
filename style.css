@@ -4,8 +4,8 @@ body {
   margin: 0;
 }
 canvas, video {
-  width: 100vw !important;
-  height: calc(100vw*0.75) !important;
+  /* width: 100vw !important;
+  height: calc(100vw*0.75) !important; */
   position: absolute;
   top: calc((100vh - (100vw*0.75))/2);
   left: 0vw;
@@ -43,4 +43,6 @@ video {
     width: calc(100vw - 10vw);
     height: calc(100vh - 10vh);
   }
+}
+@media only screen and (max-width: 550px) {
 }
