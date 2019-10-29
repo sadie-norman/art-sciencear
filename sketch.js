@@ -48,14 +48,20 @@ function preload() {
   }
 }
 function setup() {
-  var can = createCanvas(640,480);
+  var can = createCanvas(windowWidth,windowWidth*0.75);
   video = createCapture(VIDEO);
+  video.size(windowWidth, windowWidth*0.75);
   let vidHeight = select('video').height;
-
+  let mirror;
+  if(windowWidth < 600) {
+    mirror = false;
+  } else {
+    mirror = false;
+  }
   //class prop threshold : number of boxes
   let options = {
     imageScaleFactor: 0.9,
-    flipHorizontal: false,
+    flipHorizontal: mirror,
     minConfidence: 10,
     maxPoseDetections: 3,
     scoreThreshold: 0.9,
@@ -73,11 +79,11 @@ function setup() {
 function draw() {
   clear();
   if(i < 100) {
-    // windowResized();
+    windowResized();
     i++;
   }
-  
-  image(video, 0, 0, width, height);
+
+  // image(video, 0, 0, width, height);
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
   // drawSkeleton();
@@ -87,8 +93,8 @@ function draw() {
     if(face.eye1.pos) {
       let x = face.eye1.pos.x;
       let y = face.eye1.pos.y;
-      translate(x,y);
-      rotate(-(noise(0.1)*angle));
+      // translate(x,y);
+      // rotate(-(noise(0.1)*angle));
       length = face.eye2.pos.x - face.eye1.pos.x;
       // let height = face.nose.pos.y - face.eye1.pos.y;
       let v1 = createVector(face.eye1.pos.x, face.eye1.pos.y);
@@ -97,7 +103,13 @@ function draw() {
 
       if(face.eye1.img && scale > 0) {
         let width = length+scale;
-        image(face.eye1.img,-width/2,-width/2,width,width)
+        // image(face.eye1.img,-width/2,-width/2,width,width)
+        let top = (windowHeight - (windowWidth*0.75))/2;
+        let dna = select('.dna');
+        dna.position(x-(width/2),top+y-(width/2));
+        dna.size(width,width);
+        text(`${ceil(x)},${ceil(y)}`,x,y);
+        ellipse(x,y,10,10)
       }
     }
   }
@@ -125,9 +137,10 @@ function drawKeypoints()  {
       let keypoint = pose.keypoints[j];
       // Only draw an ellipse is the pose probability is bigger than 0.2
       if (keypoint.score > 0.2) {
-        fill(255, 0, 0);
-        noStroke();
+        // fill(255, 0, 0);
+        // noStroke();
 
+        //set initial ids of eye + nose
         for(let feature in face) {
           let value = face[feature];
           if(keypoint.part === value.name && !value.id) {
@@ -140,6 +153,7 @@ function drawKeypoints()  {
             value.pos = keypoint.position;
           }
         }
+        //refresh positions if ids match those in face object
         if(face.eye1.id === j || face.eye2.id === j || face.nose.id === j) {
           if(keypoint.part === "leftEye") {
             face.eye1.pos = keypoint.position;
@@ -147,11 +161,11 @@ function drawKeypoints()  {
           if(keypoint.part === "rightEye") {
             face.eye2.pos = keypoint.position;
           }
-          fill(0,255,255);
+          // fill(0,255,255);
         }
 
-        ellipse(keypoint.position.x, keypoint.position.y, 5, 5);
-        text(keypoint.part, keypoint.position.x, keypoint.position.y)
+        // ellipse(keypoint.position.x, keypoint.position.y, 5, 5);
+        // text(keypoint.part, keypoint.position.x, keypoint.position.y)
       }
     }
   }
@@ -177,6 +191,7 @@ function modelReady() {
 }
 
 function windowResized() {
-  let vidHeight = select('video').height;
-  resizeCanvas(windowWidth,vidHeight);
+  // let vidHeight = select('video').height;
+  // console.log(vidHeight)
+  // resizeCanvas(windowWidth,vidHeight);
 }
