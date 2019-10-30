@@ -11,7 +11,6 @@ Real time Object Detection using YOLO and p5.js
 let images = [];
 let imageNo = 20;
 let mirror;
-let cellsNo = 0;
 
 let video;
 let poseNet;
@@ -23,7 +22,6 @@ let scale = 10;
 let angle = 0;
 let skew = 0;
 let length = 0;
-let speed;
 
 let face = {
   eye1: {
@@ -72,9 +70,6 @@ function setup() {
     detectionType: 'single',
     multiplier: 0.75,
   }
-  speed = random(1,4);
-  console.log(speed);
-
   // Create a YOLO method
   poseNet = ml5.poseNet(video, options, modelReady);
   poseNet.on('pose',function(results) {
@@ -119,14 +114,8 @@ function draw() {
         dna.position(x-(width/2),top+y-(width/2));
         dna.size(width,width);
         dna.attribute('src',`images/img${face.eye1.img}.png`);
-        let hue = map(length,0,200,-50,50);
-        if(length <0 || length > 200) {
-          hue = 0;
-        }
-        dna.style('filter', `hue-rotate(${hue}deg)`);
-        dna.style('transform', `rotate(${angle}deg)`);
-        // text(`${ceil(x)},${ceil(y)}`,x,y);
-        // ellipse(x,y,10,10)
+        text(`${ceil(x)},${ceil(y)}`,x,y);
+        ellipse(x,y,10,10)
       }
     }
   }
@@ -135,9 +124,9 @@ function draw() {
   if(scale < windowWidth) {
     scale+=(ceil(random(-0.05,0.1)));
   }
-  let skewAngle = map(skew,0.3,0,-1,1);
+  let skewAngle = map(skew,0.3,0,0.1,-0.1)
   if(angle <360) {
-    angle += speed*skewAngle;
+    angle+=(0.032+skewAngle);
   } else {
     angle = 0;
   }
