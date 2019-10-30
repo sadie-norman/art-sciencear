@@ -12,9 +12,65 @@
 
 </head>
 <body>
-  <img class="background" src="background.png" />
+  <div class="behind"></div>
+  <div class="menu">
+    <img class="icon" alt="open menu" src="assets/plus.svg" />
+  </div>
+  <div class="info hidden">
+    <img alt="" src="assets/info.svg" />
+  </div>
+  <img class="background hidden" src="background.png" />
   <img class="circle" src="circle.png" />
+  <img class="camera" alt="please activate your camera" src="assets/camera.svg" />
+  <div class="instructions hidden">move your head to play</div>
   <img class="dna" src="" />
+  <script>
+    var camera = false;
+    // Check that the browser supports getUserMedia.
+    // If it doesn't show an alert, otherwise continue.
+    if (navigator.getUserMedia) {
+    // Request the camera.
+    navigator.getUserMedia(
+      // Constraints
+      {
+        video: true
+      },
+
+      // Success Callback
+      function(localMediaStream) {
+        document.querySelector('.camera').classList.add('hidden');
+        document.querySelector('.background').classList.remove('hidden');
+        document.querySelector('.behind').classList.add('skew');
+        document.querySelector('.instructions').classList.remove('hidden');
+      },
+
+      // Error Callback
+      function(err) {
+        // Log the error to the console.
+        document.querySelector('.camera').classList.remove('hidden');
+        console.log('The following error occurred when trying to use getUserMedia: ' + err);
+      }
+    );
+
+    } else {
+      alert('Sorry, your browser does not support getUserMedia');
+    }
+    let menu = document.querySelector('.menu .icon');
+    let info = document.querySelector('.info');
+    let circle = document.querySelector('.circle');
+    let cameraText = document.querySelector('.camera');
+    menu.addEventListener('click', function() {
+      // circle.classList.toggle('hidden');
+      info.classList.toggle('hidden');
+      if(!info.classList.contains('hidden')) {
+        cameraText.classList.add('hidden');
+      } else {
+        if(!camera) {
+          cameraText.classList.remove('hidden');
+        }
+      }
+    })
+  </script>
   <script src="sketch.js"></script>
 </body>
 </html>
