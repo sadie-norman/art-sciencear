@@ -18,7 +18,7 @@ let poses = [];
 
 let objects = [];
 let i = 0;
-let scale = 0;
+let scale = 10;
 let angle = 0;
 let skew = 0;
 let length = 0;
