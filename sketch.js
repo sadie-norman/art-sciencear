@@ -62,7 +62,7 @@ function setup() {
   //class prop threshold : number of boxes
   let options = {
     imageScaleFactor: 0.9,
-    flipHorizontal: mirror,
+    flipHorizontal: true,
     minConfidence: 10,
     maxPoseDetections: 3,
     scoreThreshold: 0.9,
