@@ -10,6 +10,7 @@ Real time Object Detection using YOLO and p5.js
 
 let images = [];
 let imageNo = 20;
+let mirror;
 
 let video;
 let poseNet;
@@ -52,11 +53,11 @@ function setup() {
   video = createCapture(VIDEO);
   video.size(windowWidth, windowWidth*0.75);
   let vidHeight = select('video').height;
-  let mirror;
+
   if(windowWidth < 600) {
     mirror = false;
   } else {
-    mirror = false;
+    mirror = true;
   }
   //class prop threshold : number of boxes
   let options = {
@@ -74,6 +75,9 @@ function setup() {
   poseNet.on('pose',function(results) {
     poses = results;
   })
+  if(windowWidth < 600) {
+    select('.circle').attribute('src','circle2.png');
+  }
 }
 
 function draw() {
@@ -85,17 +89,18 @@ function draw() {
 
   // image(video, 0, 0, width, height);
   // We can call both functions to draw all keypoints and the skeletons
-  drawKeypoints();
-  // drawSkeleton();
+  if(camera) {
+    drawKeypoints();
+  }
 
   //draw box
   if(face.eye1.id !== null && face.eye2.id !== null && face.nose.id !== null) {
     if(face.eye1.pos) {
-      let x = face.eye1.pos.x;
+      length = face.eye2.pos.x - face.eye1.pos.x;
+      let x = face.eye1.pos.x + length/2;
       let y = face.eye1.pos.y;
       // translate(x,y);
       // rotate(-(noise(0.1)*angle));
-      length = face.eye2.pos.x - face.eye1.pos.x;
       // let height = face.nose.pos.y - face.eye1.pos.y;
       let v1 = createVector(face.eye1.pos.x, face.eye1.pos.y);
       let v2 = createVector(face.eye2.pos.x, face.eye2.pos.y);
@@ -114,7 +119,7 @@ function draw() {
       }
     }
   }
-  // console.log(length);
+
   let eyeGap = map(length,30,110,-1,1);
   if(scale < windowWidth) {
     scale+=(ceil(random(-0.05,0.1)));
@@ -168,21 +173,6 @@ function drawKeypoints()  {
         // ellipse(keypoint.position.x, keypoint.position.y, 5, 5);
         // text(keypoint.part, keypoint.position.x, keypoint.position.y)
       }
-    }
-  }
-}
-
-// A function to draw the skeletons
-function drawSkeleton() {
-  // Loop through all the skeletons detected
-  for (let i = 0; i < poses.length; i++) {
-    let skeleton = poses[i].skeleton;
-    // For every skeleton, loop through all body connections
-    for (let j = 0; j < skeleton.length; j++) {
-      let partA = skeleton[j][0];
-      let partB = skeleton[j][1];
-      stroke(255, 0, 0);
-      line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
     }
   }
 }
