@@ -12,18 +12,21 @@
 
 </head>
 <body>
-  <div class="behind"></div>
-  <div class="menu">
-    <img class="icon" alt="open menu" src="assets/plus.svg" />
+  <div class="wrapper">
+    <div class="behind"></div>
+    <div class="menu">
+      <img class="icon" alt="open menu" src="assets/plus.svg" />
+    </div>
+    <div class="info hidden">
+      <img alt="" src="assets/info.svg" />
+    </div>
+    <img class="background hidden" src="background.png" />
+    <img class="circle" src="circle.png" />
+    <img class="camera" alt="please activate your camera" src="assets/camera.svg" />
+    <div class="instructions hidden">move your head to play</div>
+    <img class="dna" src="" />
   </div>
-  <div class="info hidden">
-    <img alt="" src="assets/info.svg" />
-  </div>
-  <img class="background hidden" src="background.png" />
-  <img class="circle" src="circle.png" />
-  <img class="camera" alt="please activate your camera" src="assets/camera.svg" />
-  <div class="instructions hidden">move your head to play</div>
-  <img class="dna" src="" />
+  
   <script>
     var camera = false;
     // Check that the browser supports getUserMedia.
