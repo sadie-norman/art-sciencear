@@ -111,9 +111,12 @@ video {
 @media only screen and (max-width: 1200px) {
 
 }
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 600px) {
+  .menu {
+    padding: 4vw !important;
+  }
   .menu img {
-    width: 5vw;
+    width: 5vw !important;
   }
 }
 .hidden {
