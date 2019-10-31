@@ -112,7 +112,9 @@ video {
 
 }
 @media only screen and (max-width: 550px) {
-
+  .menu img {
+    width: 5vw;
+  }
 }
 .hidden {
   display: none;
