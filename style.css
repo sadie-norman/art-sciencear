@@ -45,16 +45,28 @@ video {
   z-index: -1;
   overflow: hidden;
 }
+.background {
+  opacity: 0.8;
+}
 .circle {
   z-index: 1000!important;
 }
 /* .dna {
   filter: hue-rotate(30deg);
 } */
-.cell {
-  transition: opacity 0.3s ease-in;
+.cell, .cells {
+  transition: opacity 0.4s ease-out 0.5s;
 }
-.cell.hide {
+.cell {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  /* transition: opacity 0.3s ease-in, left 0.01s linear, right 0.01s linear, width 0.01s linear; */
+}
+.dna {
+  z-index: 100;
+}
+.cell.hide, .cells.hide {
   opacity: 0;
 }
 
