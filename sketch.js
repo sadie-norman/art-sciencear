@@ -1,17 +1,9 @@
-// Copyright (c) 2019 ml5
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
-
-/* ===
-ml5 Example
-Real time Object Detection using YOLO and p5.js
-=== */
-
 let images = [];
-let imageNo = 20;
+let imageNo = 40;
 let mirror;
 let cellsNo = 0;
+let cells = [];
+let currentCell = 0;
 
 let video;
 let poseNet;
@@ -73,7 +65,6 @@ function setup() {
     multiplier: 0.75,
   }
   speed = random(1,4);
-  console.log(speed);
 
   // Create a YOLO method
   poseNet = ml5.poseNet(video, options, modelReady);
@@ -82,6 +73,12 @@ function setup() {
   })
   if(windowWidth < 600) {
     select('.circle').attribute('src','circle2.png');
+  }
+  // create initial cell
+  cells.push(new Cell('face'));
+  // display cells
+  for(let i=0; i<cells.length;i++) {
+    cells[i].display();
   }
 }
 
@@ -101,46 +98,37 @@ function draw() {
   //draw box
   if(face.eye1.id !== null && face.eye2.id !== null && face.nose.id !== null) {
     if(face.eye1.pos) {
-      length = face.eye2.pos.x - face.eye1.pos.x;
-      let x = face.eye1.pos.x + length/2;
-      let y = face.eye1.pos.y;
-      // translate(x,y);
-      // rotate(-(noise(0.1)*angle));
-      // let height = face.nose.pos.y - face.eye1.pos.y;
-      let v1 = createVector(face.eye1.pos.x, face.eye1.pos.y);
-      let v2 = createVector(face.eye2.pos.x, face.eye2.pos.y);
-      skew = v1.angleBetween(v2);
-
       if(face.eye1.img && scale > 0) {
-        let width = length+scale;
-        // image(face.eye1.img,-width/2,-width/2,width,width)
-        let top = (windowHeight - (windowWidth*0.75))/2;
-        let dna = select('.dna');
-        dna.position(x-(width/2),top+y-(width/2));
-        dna.size(width,width);
-        dna.attribute('src',`images/img${face.eye1.img}.png`);
-        let hue = map(length,0,200,-50,50);
-        if(length <0 || length > 200) {
-          hue = 0;
+        let data = {
+          x1: face.eye1.pos.x,
+          y1: face.eye1.pos.y,
+          x2: face.eye2.pos.x,
+          y2: face.eye2.pos.y,
+          image: face.eye1.img
         }
-        dna.style('filter', `hue-rotate(${hue}deg)`);
-        dna.style('transform', `rotate(${angle}deg)`);
-        // text(`${ceil(x)},${ceil(y)}`,x,y);
-        // ellipse(x,y,10,10)
+        cells[0].update(data);
+        if(cells.length > 1) {
+          for(let i=1; i<cells.length;i++) {
+            cells[i].update();
+          }
+        }
       }
     }
   }
-
-  let eyeGap = map(length,30,110,-1,1);
-  if(scale < windowWidth) {
-    scale+=(ceil(random(-0.05,0.1)));
+  if(select('.dna').width > windowWidth/2 && cells.length === 1) {
+    addNewCell(1);
   }
-  let skewAngle = map(skew,0.3,0,-1,1);
-  if(angle <360) {
-    angle += speed*skewAngle;
-  } else {
-    angle = 0;
+  if(select('.dna1').width > windowWidth/2.1 && cells.length === 2) {
+    addNewCell(2);
   }
+  if(select('.dna2').width > windowWidth/2.1 && cells.length === 3) {
+    addNewCell(3);
+  }
+}
+function addNewCell(index) {
+  let imageI = floor(random(0,images.length));
+  cells[index] = new Cell('bot',imageI,index);
+  cells[index].display();
 }
 
 // A function to draw ellipses over the detected keypoints
@@ -154,9 +142,6 @@ function drawKeypoints()  {
       let keypoint = pose.keypoints[j];
       // Only draw an ellipse is the pose probability is bigger than 0.2
       if (keypoint.score > 0.2) {
-        // fill(255, 0, 0);
-        // noStroke();
-
         //set initial ids of eye + nose
         for(let feature in face) {
           let value = face[feature];
@@ -178,11 +163,7 @@ function drawKeypoints()  {
           if(keypoint.part === "rightEye") {
             face.eye2.pos = keypoint.position;
           }
-          // fill(0,255,255);
         }
-
-        // ellipse(keypoint.position.x, keypoint.position.y, 5, 5);
-        // text(keypoint.part, keypoint.position.x, keypoint.position.y)
       }
     }
   }
@@ -190,6 +171,7 @@ function drawKeypoints()  {
 
 function modelReady() {
   // select('#status').html('Model Loaded');
+  select('.cells').removeClass('hide');
 }
 
 function windowResized() {
