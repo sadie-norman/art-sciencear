@@ -37,10 +37,14 @@ let face = {
 }
 
 function preload() {
-  for(let i=0; i<imageNo; i++) {
-    let image = loadImage(`images/img${i+1}.png`);
+  for(let i=0; i<4; i++) {
+    let image = loadImage(`images/img${floor(random(0,imageNo))}.png`);
     images.push(image);
   }
+//   for(let i=0; i<imageNo; i++) {
+//     let image = loadImage(`images/img${i+1}.png`);
+//     images.push(image);
+//   }
 }
 function setup() {
   var can = createCanvas(windowWidth,windowWidth*0.75);
@@ -116,17 +120,20 @@ function draw() {
     }
   }
   if(select('.dna').width > windowWidth/2 && cells.length === 1) {
+    currentCell = 1;
     addNewCell(1);
   }
   if(select('.dna1').width > windowWidth/2.1 && cells.length === 2) {
+    currentCell = 2;
     addNewCell(2);
   }
   if(select('.dna2').width > windowWidth/2.1 && cells.length === 3) {
+    currentCell = 3;
     addNewCell(3);
   }
 }
 function addNewCell(index) {
-  let imageI = floor(random(0,images.length));
+  let imageI = images[currentCell];
   cells[index] = new Cell('bot',imageI,index);
   cells[index].display();
 }
