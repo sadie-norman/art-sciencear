@@ -136,7 +136,9 @@ function draw() {
   }
 }
 function addNewCell(index) {
+  console.log(currentCell);
   let imageI = images[currentCell];
+  console.log(imageI);
   cells[index] = new Cell('bot',imageI,index);
   cells[index].display();
 }
