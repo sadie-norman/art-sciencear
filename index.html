@@ -37,49 +37,52 @@
     // Check that the browser supports getUserMedia.
     // If it doesn't show an alert, otherwise continue.
     
-      
-//     navigator.mediaDevices.getUserMedia({
-//         video: true
-//       })
-//     .then(function(stream) {
-//       console.log(true)
-//       /* use the stream */
-//       document.querySelector('.camera').classList.add('hidden');
-//       document.querySelector('.background').classList.remove('hidden');
-//       document.querySelector('.behind').classList.add('skew');
-//       document.querySelector('.instructions').classList.remove('hidden');
-//     })
-//     .catch(function(err) {
-//       /* handle the error */ 
-//       document.querySelector('.camera').classList.remove('hidden');
-//       console.log('The following error occurred when trying to use getUserMedia: ' + err);
-//     });
-    if (navigator.getUserMedia) {
-    // Request the camera.
-    navigator.getUserMedia(
-      // Constraints
-      {
-        video: true
-      },
+    if(screen.width > 600) { //if desktop
+      console.log(true);
+      if (navigator.getUserMedia) {
+      // Request the camera.
+      navigator.getUserMedia(
+        // Constraints
+        {
+          video: true
+        },
 
-      // Success Callback
-      function(localMediaStream) {
+        // Success Callback
+        function(localMediaStream) {
+          document.querySelector('.camera').classList.add('hidden');
+          document.querySelector('.background').classList.remove('hidden');
+          document.querySelector('.behind').classList.add('skew');
+          document.querySelector('.instructions').classList.remove('hidden');
+        },
+
+        // Error Callback
+        function(err) {
+          // Log the error to the console.
+          document.querySelector('.camera').classList.remove('hidden');
+          console.log('The following error occurred when trying to use getUserMedia: ' + err);
+        }
+      );
+
+      } else {
+        alert('Sorry, your browser does not support getUserMedia');
+      }
+    } else { //if mobile
+      navigator.mediaDevices.getUserMedia({
+          video: true
+        })
+      .then(function(stream) {
+        console.log(true)
+        /* use the stream */
         document.querySelector('.camera').classList.add('hidden');
         document.querySelector('.background').classList.remove('hidden');
         document.querySelector('.behind').classList.add('skew');
         document.querySelector('.instructions').classList.remove('hidden');
-      },
-
-      // Error Callback
-      function(err) {
-        // Log the error to the console.
+      })
+      .catch(function(err) {
+        /* handle the error */ 
         document.querySelector('.camera').classList.remove('hidden');
         console.log('The following error occurred when trying to use getUserMedia: ' + err);
-      }
-    );
-
-    } else {
-      alert('Sorry, your browser does not support getUserMedia');
+      });
     }
     let menu = document.querySelector('.menu .icon');
     let info = document.querySelector('.info');
