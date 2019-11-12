@@ -40,6 +40,7 @@
       
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(stream) {
+      console.log(true)
       /* use the stream */
       document.querySelector('.camera').classList.add('hidden');
       document.querySelector('.background').classList.remove('hidden');
