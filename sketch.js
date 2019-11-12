@@ -40,8 +40,8 @@ function preload() {
   for(let i=0; i<4; i++) {
     let randomImage = floor(random(0,imageNo));
     console.log(randomImage);
-    let image = loadImage(`images/img${randomImage}.png`);
-    images.push(image);
+//     let image = loadImage(`images/img${randomImage}.png`);
+    images.push(randomImage);
   }
   console.log(images)
 //   for(let i=0; i<imageNo; i++) {
