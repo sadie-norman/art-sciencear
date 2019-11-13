@@ -23,7 +23,7 @@
     <img class="background hidden" src="background.png" />
     <img class="circle" src="circle.png" />
     <img class="camera" alt="please activate your camera" src="assets/camera.svg" />
-    <div class="instructions hidden">move your head to play</div>
+    <div class="instructions hidden"><img src="assets/instructions.png" alt="move your head to play"></div>
     <div class="cells hide">
       <img class="dna cell hide" src="" />
       <img class="dna1 cell hide" src="" />
@@ -83,6 +83,7 @@
         document.querySelector('.camera').classList.remove('hidden');
         console.log('The following error occurred when trying to use getUserMedia: ' + err);
       });
+      document.querySelector('.info').src = "assets/info-mob.png";
     }
     let menu = document.querySelector('.menu .icon');
     let info = document.querySelector('.info');
