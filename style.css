@@ -123,6 +123,7 @@ video {
   z-index: 1000000!important;
   width: 80%;
   height: auto;
+  max-width: 50%;
 }
 
 @media only screen and (max-width: 1200px) {
