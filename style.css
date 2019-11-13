@@ -128,6 +128,8 @@ video {
 @media only screen and (min-width: 1000px) {
   .info img {
     padding: 0 20vw;
+    max-width: 50%;
+    margin: 0 auto;
   }
 }
 @media only screen and (max-width: 600px) {
