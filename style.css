@@ -138,6 +138,9 @@ video {
   .menu img {
     width: 5vw !important;
   }
+  .instructions img {
+    max-width: 60vw;
+  }
 }
 .hidden {
   display: none;
