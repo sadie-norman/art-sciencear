@@ -104,7 +104,7 @@ video {
   right: 0;
   top: 0;
   padding: 2vw;
-  z-index: 1000000;
+  z-index: 100000000;
 }
 .menu .icon {
   width: 2vw;
