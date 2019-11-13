@@ -84,6 +84,8 @@
         document.querySelector('.camera').classList.remove('hidden');
         console.log('The following error occurred when trying to use getUserMedia: ' + err);
       });
+    }
+    if(screen.width < 600) {
       console.log(true);
       document.querySelector('.info img').src = "assets/info-mob.png";
     }
