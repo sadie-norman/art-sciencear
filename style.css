@@ -72,11 +72,16 @@ video {
 
 .instructions {
   position: absolute;
-  top: 5vw;
+  top: 0vw;
   width: 100vw;
+  height: 100vh;
   margin: 0 auto;
   text-align: center;
   z-index: 1000000 !important;
+  display: grid;
+}
+.instructions img {
+  margin: auto;
 }
 .instructions:not(.hidden) {
   animation: showHow 5s ease-in forwards;
